@@ -1,0 +1,26 @@
+{
+  "name": "Talking-House",
+  "version": "0.0.0",
+  "description": "A web application for projecting video-captured facial features onto a house, streamed from a performer computer to a projector computer over webRTC.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flyswatter/Talking-House"
+  },
+  "keywords": [
+    "halloween",
+    "talking",
+    "house"
+  ],
+  "author": "Dan Finlay <dan@danfinlay.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/flyswatter/Talking-House/issues"
+  },
+  "dependencies": {
+    "ecstatic": "~0.4.9"
+  }
+}

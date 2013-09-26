@@ -1,0 +1,27 @@
+body{
+  font-family:helvetica, arial, sans-serif;
+  background:black;
+  color:white;
+  padding:0px;
+  margin:0px;
+}
+menu{
+  padding:10px;
+  float:left;
+}
+.selection{
+  border:3px dotted red;
+
+  filter: contrast(200%);
+}
+video{
+  position:relative;
+  float:left;
+  filter: grayscale(1);
+}
+#videoWell{
+  position:relative;
+}
+#videoWell .selection{
+  position:absolute;
+}
