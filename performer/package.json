@@ -1,0 +1,15 @@
+{
+  "name": "performer",
+  "version": "0.0.0",
+  "description": "The performer module for Talking-House",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dan Finlay",
+  "license": "BSD",
+  "dependencies": {
+    "rtc-media": "~1.0.0",
+    "rtc": "~0.4.0"
+  }
+}

@@ -4,6 +4,7 @@
   "description": "A web application for projecting video-captured facial features onto a house, streamed from a performer computer to a projector computer over webRTC.",
   "main": "index.js",
   "scripts": {
+    "start": "node setup.js",
     "test": "mocha"
   },
   "repository": {
@@ -21,6 +22,10 @@
     "url": "https://github.com/flyswatter/Talking-House/issues"
   },
   "dependencies": {
-    "ecstatic": "~0.4.9"
+    "ecstatic": "~0.4.9",
+    "socket.io": "~0.9.16"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
   }
 }
