@@ -25,7 +25,7 @@ var server = http.createServer(function(req, res){
 
 
 //Signaling data exchange via WebSockets:
-var io = require('socket.io').listen(socketPort);
+var io = require('socket.io').listen(server);
 
 var currentSignals = {
 	performer: null,
@@ -33,14 +33,17 @@ var currentSignals = {
 }
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('signals', currentSignals);
-  socket.on('new client', function (data) {
-    if(data.performer){
-    	currentSignals.data = data.performer;
-    }
-    if(data.audience){
-    	currentSignals.audience.push(data.audience);
-    }
-    io.sockets.emit('signals', currentSignals);
-  });
+	console.log("New connection");
+	socket.emit('signals', currentSignals);
+	socket.on('new client', function (data) {
+		console.log("New client: "+JSON.stringify(data));
+		if(data.performer){
+			currentSignals.data = data.performer;
+		}
+		if(data.audience){
+			currentSignals.audience.push(data.audience);
+		}
+		console.log("Emitting signals: "+currentSignals);
+		io.sockets.emit('signals', currentSignals);
+	});
 });
