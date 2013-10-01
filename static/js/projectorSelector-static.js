@@ -1,1 +1,0 @@
-projectorSelector-static.js
