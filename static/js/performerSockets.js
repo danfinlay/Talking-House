@@ -1,8 +1,10 @@
 var mySignal = null;
 
 var socket = io.connect('http://localhost:8084');
-socket.on('signals', function (data) {
-	console.log("Signals received: ",data);
+
+
+socket.on('settings', function (data) {
+	console.log("Settings received: ", data);
 });
 
 

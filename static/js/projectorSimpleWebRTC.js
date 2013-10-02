@@ -23,6 +23,8 @@ webrtc.on('videoAdded', function(){
 	videoAdded = true;
 })
 
+
+
 var processor = {
 	doLoad: function() {
 		console.log("Doload called>");
@@ -37,7 +39,7 @@ var processor = {
 
 	    	if(neverPlayed){
 	    		neverPlayed = false;
-	    		
+
 		    	// console.log("Play event fired.");
 		        self.width = self.video.videoWidth / 2;
 		        self.height = self.video.videoHeight / 2;
@@ -57,21 +59,21 @@ var processor = {
       }, 0);
   },
   computeFrame: function() {
-    this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
-    var frame = this.ctx1.getImageData(0, 0, this.width, this.height);
-    var l = frame.data.length / 4;
 
-    for (var i = 0; i < l; i++) {
-      var r = frame.data[i * 4 + 0];
-      var g = frame.data[i * 4 + 1];
-      var b = frame.data[i * 4 + 2];
-      if (g > 100 && r > 100 && b < 43)
-        frame.data[i * 4 + 3] = 0;
-    }
-    this.ctx2.putImageData(frame, 0, 0);
+    this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
+    // var frame = this.ctx1.getImageData(0, 0, this.width, this.height);
+    // var l = frame.data.length / 4;
+	var img = new Image();
+	img.id = "pic"
+	img.src = this.c1.toDataURL();
+	// document.getElementById('image_for_crop').appendChild(img);
+    if(selections) sliceImageIntoImage(img, this.ctx2, selections);
+
     return;
   }
 };
+
+var frameComputed = false;
 
 var documentReady = false;
 function readyFunction(){
