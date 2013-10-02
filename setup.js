@@ -5,4 +5,3 @@ var util  = require('util'),
     brClient = spawn('browserify', ['./performer/index.js', '-o', './static/js/performerBundle.js']);
     prProj = spawn('browserify', ['./projector/index.js', '-o', './static/js/projectorBundle.js']);
     startup = spawn('supervisor', ['index.js']);
-

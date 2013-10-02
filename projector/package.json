@@ -1,0 +1,11 @@
+{
+  "name": "projector",
+  "version": "0.0.0",
+  "description": "Client side code for displaying sliced up video being streamed from the Performer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Dan Finlay <dan@danfinlay.com>",
+  "license": "BSD-2-Clause"
+}

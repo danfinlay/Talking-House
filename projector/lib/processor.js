@@ -1,67 +1,3 @@
-;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = function(){
-  
-  window.selections = [];
-
-  return {
-    selection: [
-      {
-        source:[180, 175, 60, 45],
-        destination:[0, 0, 1]
-      },
-      {
-        source:[250, 175, 60, 45],
-        destination:[0.4, 0, 1]
-      },
-      {
-        source:[210, 210, 75, 100],
-        destination:[0.6, 0, 1]
-      }
-    ]
-  }
-
-}
-},{}],2:[function(require,module,exports){
-var defaults = require('../lib/defaults')();
-
-//Processor is in charge of slicing up image and placing it in the target canvas.
-var processor = require('./lib/processor')();
-
-
-//WebRTC Setup:
-var webrtc = new SimpleWebRTC({
-    remoteVideosEl: 'remoteVideos',
-    autoRequestMedia: true
-});
-
-// we have to wait until it's ready
-webrtc.on('readyToCall', function () {
-    webrtc.joinRoom('Talking House');
-});
-
-//Processor's doLoad is called once both webRTC & document are ready:
-var videoAdded = false;
-var documentReady = false;
-
-webrtc.on('videoAdded', function(){
-  console.log("Video added.");
-  if(documentReady && !videoAdded){
-    console.log("Calling it!");
-    processor.doLoad();
-  }
-  videoAdded = true;
-})
-
-window.readyFunction = function(){
-  console.log("Readyfunction called");
-  if(videoAdded && !documentReady){
-    console.log("Calling it!2");
-    processor.doLoad(); 
-  }
-  
-  documentReady = true;
-}
-},{"../lib/defaults":1,"./lib/processor":3}],3:[function(require,module,exports){
 module.exports = function(defaults){
   return new ImageProcessor(defaults);
 }
@@ -98,7 +34,7 @@ var ImageProcessor = function(defaults){
 
       }
 
-      $('video').on('timeupdate', function(){
+      $('video').bind('timeupdate', function(){
         self.computeFrame();
       })
 
@@ -180,5 +116,3 @@ function sliceImageIntoImage( srcCtx, destCtx ){
 
   });
 }
-},{}]},{},[2])
-;
