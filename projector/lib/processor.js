@@ -4,90 +4,63 @@ module.exports = function(defaults){
 
 var ImageProcessor = function(defaults){
 
-  window.vidWidth = $('video').width();
-  window.vidHeight = $('video').height();
   window.width = $(window).width();
   window.height = $(window).height();
 
+  setTimeout(updateViewSize, 2000);
+
   this.defaults = defaults;
+
+  var self = this;
 
   this.doLoad = function() {
     console.log("Procesor doLoad called");
-    this.video = document.querySelector('#remoteVideos video');
-    this.c1 = document.getElementById("c1");
-    this.ctx1 = this.c1.getContext("2d");
-    this.c2 = document.getElementById("c2");
-    this.ctx2 = this.c2.getContext("2d");
+    window.video = document.querySelector('#remoteVideos video');
+    window.c1 = document.getElementById("c1");
+    window.ctx1 = window.c1.getContext("2d");
+    window.c2 = document.getElementById("c2");
+    window.ctx2 = window.c2.getContext("2d");
 
-    var self = this;
     var neverPlayed = true;
-    this.video.addEventListener("playing", function() {
+    window.video.addEventListener("playing", function() {
 
       if(neverPlayed){
         neverPlayed = false;
 
         // console.log("Play event fired.");
-          self.width = self.video.videoWidth / 2;
-          self.height = self.video.videoHeight / 2;
-          self.timerCallback();
-
-
+        self.width = window.video.videoWidth / 2;
+        self.height = window.video.videoHeight / 2;
+        // self.timerCallback();
       }
 
+      //This is the callback that we're rendering on.
+      //Either it's not every frame, or slicing video is very CPU intensive.
       $('video').bind('timeupdate', function(){
+        // console.log("Time update");
         self.computeFrame();
-      })
+      });
 
     }, false);
   }
 
-  this.timerCallback = function() {
-    if (this.video.paused || this.video.ended) {
-      return;
-    }
-    this.computeFrame();
-    var self = this;
-    setTimeout(function () {
-        self.timerCallback();
-      }, 0);
-  }
-
   this.computeFrame = function() {
 
-    this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
-    if(window.selection) sliceImageIntoImage(this.ctx1, this.ctx2, window.selection);
+    // console.log("Computing frame.");
+    window.ctx1.drawImage(window.video, 0, 0, window.source.width, window.source.height);
+    if(window.selection) sliceImageIntoImage(window.ctx1, window.ctx2, window.selection);
 
   }
+
+  this.updateViewSize = updateViewSize;
 
 }
 
-/**
-This is javascript that works for cropping/scaling from a canvas:
-
-  var c1 = document.getElementById('c1');
-  var c2 = document.getElementById('c2');
-
-  var ctx1 = c1.getContext("2d");
-  var ctx2 = c2.getContext("2d");
-
-  ctx1.fillRect(25,25,100,100);
-  ctx1.clearRect(45,45,60,60);
-  ctx1.strokeRect(50,50,50,50);
-
-  var img = new Image();
-  img.id = "pic"
-  img.src = this.c1.toDataURL();
-
-  ctx2.drawImage(img, 25,25,50,50, 40, 40, 200, 200);
-
-
-**/
 
 function sliceImageIntoImage( srcCtx, destCtx ){
 
   var img = new Image();
-  img.id = "pic"
-  img.src = this.srcCtx.toDataURL();
+  img.id = "pic";
+  img.src = window.c1.toDataURL();
 
   window.selection.forEach(function(s){
 
@@ -99,20 +72,23 @@ function sliceImageIntoImage( srcCtx, destCtx ){
 
     var dx = window.vidWidth * s.destination[0];
     var dy = window.vidHeight * s.destination[1];
-    var dw = window.width * s.destination[2];
-    var dh = window.height * s.destination[2];
+    var dw = s.source[2] * s.destination[2] * window.sizeDifference;
+    var dh = s.source[3] * s.destination[2] * window.sizeDifference;
 
-    console.log("Drawing destination canvas");
-    destCtx.drawImage(srcImg, s.source[0], s.source[1], s.source[2], s.source[3], dx, dy, dw, dh);  
-
-      // for (var i = 0; i < l; i++) {
-      //   var r = frame.data[i * 4 + 0];
-      //   var g = frame.data[i * 4 + 1];
-      //   var b = frame.data[i * 4 + 2];
-      //   if (g > 100 && r > 100 && b < 43)
-      //     frame.data[i * 4 + 3] = 0;
-      // }
-      // this.ctx2.putImageData(frame, 0, 0);
+    // console.log("Working with: ", window.vidWidth, window.vidHeight, s)
+    // console.log("Drawing destination canvas", [s.source[0], s.source[1], s.source[2], s.source[3], dx, dy, dw, dh]);
+   
+    destCtx.drawImage(img, s.source[0]+50, s.source[1], s.source[2], s.source[3], dx, dy, dw, dh);  
 
   });
+}
+
+function updateViewSize(){
+  $('#c2').attr('width', window.width);
+  window.vidWidth = window.width;
+  $('#c2').attr('height', window.height);
+  window.vidHeight = window.height;
+
+  window.sizeDifference = window.vidWidth / 640;
+  console.log("Size diff: "+sizeDifference);
 }

@@ -2,7 +2,7 @@ var defaults = require('../lib/defaults')();
 
 //Processor is in charge of slicing up image and placing it in the target canvas.
 var processor = require('./lib/processor')();
-
+var socketHandler = require('./lib/socketHandler')();
 
 //WebRTC Setup:
 var webrtc = new SimpleWebRTC({

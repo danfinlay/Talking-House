@@ -34,16 +34,20 @@ var currentSettings = {
 
 io.sockets.on('connection', function (socket) {
 	// console.log("New connection");
-	socket.emit('signals', currentSettings);
-	socket.on('update', function (data) {
-		console.log("update: "+JSON.stringify(data));
-		if(data.performer){
-			currentSettings.performer = data.performer;
-		}
-		if(data.audience){
-			currentSettings.audience.push(data.audience);
-		}
-		console.log("Emitting signals: "+currentSettings);
-		io.sockets.emit('settings', currentSettings);
-	});
+
+//Disabling sockets for now, no real-time refining of display from performer view.
+	// socket.emit('signals', currentSettings);
+	// socket.on('update', function (data) {
+	// 	console.log("update: "+JSON.stringify(data));
+	// 	if(data.performer){
+	// 		currentSettings.performer = data.performer;
+	// 	}
+	// 	if(data.audience){
+	// 		currentSettings.audience.push(data.audience);
+	// 	}
+	// 	console.log("Emitting signals: "+currentSettings);
+	// 	io.sockets.emit('settings', currentSettings);
+	// });
+
+
 });
