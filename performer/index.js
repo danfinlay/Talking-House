@@ -22,12 +22,13 @@ window.readyFunction = function(){
 
 }
 
-//Socket.io setup:
-var socket = io.connect('http://localhost:8084');
+var socket = null;
+//Socket.io setup:  (Disabled until live-updating is worked on)
+// var socket = io.connect('http://localhost:8084');
 
-socket.on('settings', function (data) {
-  console.log("Settings received: ", data);
-});
+// socket.on('settings', function (data) {
+//   console.log("Settings received: ", data);
+// });
 
 
 //Handle program selections:
@@ -37,3 +38,4 @@ var defaults = require('../lib/defaults')();
 window.defaults = defaults;
 var selectionHandler = require('./lib/selectionHandler')(defaults, socket);
 
+var urlRandomizer = require('./lib/urlRandomizer');

@@ -24,18 +24,19 @@ var server = http.createServer(function(req, res){
 }).listen(port);
 
 
-//Signaling data exchange via WebSockets:
-var io = require('socket.io').listen(server);
-
 var currentSettings = {
 	performer: null,
 	audience: []
 }
 
-io.sockets.on('connection', function (socket) {
-	// console.log("New connection");
 
 //Disabling sockets for now, no real-time refining of display from performer view.
+
+// var io = require('socket.io').listen(server);
+
+// io.sockets.on('connection', function (socket) {
+	// console.log("New connection");
+
 	// socket.emit('signals', currentSettings);
 	// socket.on('update', function (data) {
 	// 	console.log("update: "+JSON.stringify(data));
@@ -49,5 +50,4 @@ io.sockets.on('connection', function (socket) {
 	// 	io.sockets.emit('settings', currentSettings);
 	// });
 
-
-});
+// });

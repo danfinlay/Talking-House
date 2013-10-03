@@ -11,12 +11,12 @@ var SelectionHandler = function(defaults, socket){
     window.height = $('video').height();
 
     //Share these selections with all clients.
-    socket.emit('update', {performer:{selections:window.selections}});
+    // socket.emit('update', {performer:{selections:window.selections}});
   }
 
   this.updateAndEmitFrames = function(){
 
-    socket.emit('update', {performer:{selections:window.selection}});
+    // socket.emit('update', {performer:{selections:window.selection}});
 
   }
 

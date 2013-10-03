@@ -121,20 +121,20 @@ var ImageProcessor = function(defaults){
 
     // console.log("Computing frame.");
     window.ctx1.drawImage(window.video, 0, 0, window.source.width, window.source.height);
-    if(window.selection) sliceImageIntoImage(window.ctx1, window.ctx2, window.selection);
+    if(window.selection) this.sliceImageIntoImage(window.ctx1, window.ctx2, window.selection);
 
   }
-
+  this.sliceImageIntoImage = sliceImageIntoImage;
   this.updateViewSize = updateViewSize;
+  this.img;
 
 }
 
-
 function sliceImageIntoImage( srcCtx, destCtx ){
 
-  var img = new Image();
-  img.id = "pic";
-  img.src = window.c1.toDataURL();
+  this.img = new Image();
+  this.img.id = "pic";
+  this.img.src = window.c1.toDataURL();
 
   window.selection.forEach(function(s){
 
@@ -152,7 +152,9 @@ function sliceImageIntoImage( srcCtx, destCtx ){
     // console.log("Working with: ", window.vidWidth, window.vidHeight, s)
     // console.log("Drawing destination canvas", [s.source[0], s.source[1], s.source[2], s.source[3], dx, dy, dw, dh]);
    
-    destCtx.drawImage(img, s.source[0]+50, s.source[1], s.source[2], s.source[3], dx, dy, dw, dh);  
+    destCtx.drawImage(this.img, s.source[0]+50, s.source[1], s.source[2], s.source[3], dx, dy, dw, dh);  
+
+
 
   });
 }

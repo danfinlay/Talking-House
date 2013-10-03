@@ -56,12 +56,13 @@ window.readyFunction = function(){
 
 }
 
-//Socket.io setup:
-var socket = io.connect('http://localhost:8084');
+var socket = null;
+//Socket.io setup:  (Disabled until live-updating is worked on)
+// var socket = io.connect('http://localhost:8084');
 
-socket.on('settings', function (data) {
-  console.log("Settings received: ", data);
-});
+// socket.on('settings', function (data) {
+//   console.log("Settings received: ", data);
+// });
 
 
 //Handle program selections:
@@ -71,8 +72,8 @@ var defaults = require('../lib/defaults')();
 window.defaults = defaults;
 var selectionHandler = require('./lib/selectionHandler')(defaults, socket);
 
-
-},{"../lib/defaults":1,"./lib/marqueeHandler":3,"./lib/selectionHandler":4}],3:[function(require,module,exports){
+var urlRandomizer = require('./lib/urlRandomizer');
+},{"../lib/defaults":1,"./lib/marqueeHandler":3,"./lib/selectionHandler":4,"./lib/urlRandomizer":5}],3:[function(require,module,exports){
 module.exports = function(){
   console.log("Drawing marquees1");
   return new window.MarqueeHandler();
@@ -109,17 +110,21 @@ var SelectionHandler = function(defaults, socket){
     window.height = $('video').height();
 
     //Share these selections with all clients.
-    socket.emit('update', {performer:{selections:window.selections}});
+    // socket.emit('update', {performer:{selections:window.selections}});
   }
 
   this.updateAndEmitFrames = function(){
 
-    socket.emit('update', {performer:{selections:window.selection}});
+    // socket.emit('update', {performer:{selections:window.selection}});
 
   }
 
   window.updateAndEmitFrames = this.updateAndEmitFrames;
 
+}
+},{}],5:[function(require,module,exports){
+module.exports = function(){
+  
 }
 },{}]},{},[2])
 ;
