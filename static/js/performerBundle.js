@@ -32,8 +32,10 @@ module.exports = function(){
 
 }
 },{}],2:[function(require,module,exports){
-
 window.readyFunction = function(){
+
+  var addLinkFromUrl = require('./lib/urlGenerator')();
+
   // WebRTC Setup:
   var webrtc = new SimpleWebRTC({
       localVideoEl: 'video',
@@ -72,8 +74,7 @@ var defaults = require('../lib/defaults')();
 window.defaults = defaults;
 var selectionHandler = require('./lib/selectionHandler')(defaults, socket);
 
-var urlRandomizer = require('./lib/urlRandomizer');
-},{"../lib/defaults":1,"./lib/marqueeHandler":3,"./lib/selectionHandler":4,"./lib/urlRandomizer":5}],3:[function(require,module,exports){
+},{"../lib/defaults":1,"./lib/marqueeHandler":3,"./lib/selectionHandler":4,"./lib/urlGenerator":5}],3:[function(require,module,exports){
 module.exports = function(){
   console.log("Drawing marquees1");
   return new window.MarqueeHandler();
@@ -124,7 +125,21 @@ var SelectionHandler = function(defaults, socket){
 }
 },{}],5:[function(require,module,exports){
 module.exports = function(){
-  
+
+  var url = document.URL.split('=');
+  var projectorLink = '/projector'
+
+  if(url.length > 1){
+    projectorLink += '?id=' + url[url.length-1];
+
+  }
+
+  console.log("Adding in link: "+projectorLink);
+
+  var link = $('a');
+  link.attr('href', projectorLink);
+  link.text(projectorLink);
+
 }
 },{}]},{},[2])
 ;

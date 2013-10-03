@@ -1,5 +1,7 @@
-
 window.readyFunction = function(){
+
+  var addLinkFromUrl = require('./lib/urlGenerator')();
+
   // WebRTC Setup:
   var webrtc = new SimpleWebRTC({
       localVideoEl: 'video',
@@ -37,5 +39,3 @@ var socket = null;
 var defaults = require('../lib/defaults')();
 window.defaults = defaults;
 var selectionHandler = require('./lib/selectionHandler')(defaults, socket);
-
-var urlRandomizer = require('./lib/urlRandomizer');

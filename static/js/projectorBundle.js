@@ -36,7 +36,7 @@ var defaults = require('../lib/defaults')();
 
 //Processor is in charge of slicing up image and placing it in the target canvas.
 var processor = require('./lib/processor')();
-var socketHandler = require('./lib/socketHandler')();
+// var socketHandler = require('./lib/socketHandler')();
 
 //WebRTC Setup:
 var webrtc = new SimpleWebRTC({
@@ -71,7 +71,7 @@ window.readyFunction = function(){
   
   documentReady = true;
 }
-},{"../lib/defaults":1,"./lib/processor":3,"./lib/socketHandler":4}],3:[function(require,module,exports){
+},{"../lib/defaults":1,"./lib/processor":3}],3:[function(require,module,exports){
 module.exports = function(defaults){
   return new ImageProcessor(defaults);
 }
@@ -136,6 +136,8 @@ function sliceImageIntoImage( srcCtx, destCtx ){
   this.img.id = "pic";
   this.img.src = window.c1.toDataURL();
 
+  var that = this;
+
   window.selection.forEach(function(s){
 
     //Each 's', or selection, is an object like this:
@@ -152,7 +154,7 @@ function sliceImageIntoImage( srcCtx, destCtx ){
     // console.log("Working with: ", window.vidWidth, window.vidHeight, s)
     // console.log("Drawing destination canvas", [s.source[0], s.source[1], s.source[2], s.source[3], dx, dy, dw, dh]);
    
-    destCtx.drawImage(this.img, s.source[0]+50, s.source[1], s.source[2], s.source[3], dx, dy, dw, dh);  
+    destCtx.drawImage(that.img, s.source[0]+50, s.source[1], s.source[2], s.source[3], dx, dy, dw, dh);  
 
 
 
@@ -167,25 +169,6 @@ function updateViewSize(){
 
   window.sizeDifference = window.vidWidth / 640;
   console.log("Size diff: "+sizeDifference);
-}
-},{}],4:[function(require,module,exports){
-module.exports = function(){
-  return new SocketHandler();
-}
-
-var SocketHandler = function(){
-
-  window.socket = io.connect('http://localhost:8084');
-
-  var settings = {};
-
-  socket.on('settings', function (data) {
-    console.log("Settings received: ", data);
-    settings.performer = data.performer;
-    if(data && data.performer && data.performer.selections && data.performer.selections.length > 0){
-      window.selection = data.performer.selections;
-    }
-  });
 }
 },{}]},{},[2])
 ;

@@ -3,6 +3,9 @@ var ecstatic = require('ecstatic');
 var url = require('url');
 var fs = require('fs');
 
+//Local modules:
+var makeId = require('./lib/makeId');
+
 var port = process.argv[2] || 8084; //Default port is 8084, if no argument is given.
 var socketPort = 8086;
 
@@ -10,14 +13,25 @@ var server = http.createServer(function(req, res){
 
 	var parsedReq = url.parse(req.url,true);
 	var path = parsedReq.pathname.split('/');
-
-	if (path[1] === 'performer') {
+	console.log("Path requested: "+JSON.stringify(path));
+	if(path[1] === 'new'  && ((path.length === 3 && path[2] === '') || path.length===2)){
+		console.log("Hit the first one.");
+		res.writeHead(302, {
+			'Location':'/performer/?id='+makeId(6),
+			'Content-Type': 'text/html',
+		});
+		res.end('To create a unique stream, go to this site /projector/ANY_ID_YOU_WANT_TRY_TO_BE_UNIQUE');
+	} else if (path[1] === 'performer' && ((path.length === 3 && path[2] === '') || path.length===2) ) {
+		console.log("Performer caught");
 		res.writeHead(200);
 		fs.createReadStream(__dirname + '/static/performer.html').pipe(res);
-	} else if (path[1] === 'projector') {
+	} else if (path[1] === 'projector' && ((path.length === 3 && path[2] === '') || path.length===2)) {
+		console.log("Projector caught");
 		res.writeHead(200);
 		fs.createReadStream(__dirname + '/static/projector.html').pipe(res);
 	} else {
+
+		console.log("Ecstatic caught");
 		ecstatic({root: __dirname+'/static', handleError:false})(req, res);
 	}
 
