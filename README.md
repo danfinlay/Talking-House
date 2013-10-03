@@ -11,3 +11,5 @@ For example, I'll be trying to project it on a house in this pattern:
 Consists of three node applications:  Performer, Projector, and Server.
 
 You should `npm install` in the root directory as well as the `projector` and `performer` directories.  From there, a simple `npm start` should get the program running for you on port 8084.  Visit `localhost:8084/new` to generate a unique room link, for streaming a single performance to a specific (or even multiple) projectors.
+
+If you want to customize the regions to grab and display, edit `/lib/defaults.js`.
