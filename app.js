@@ -6,7 +6,7 @@ var fs = require('fs');
 //Local modules:
 var makeId = require('./lib/makeId');
 
-var port = process.argv[2] || 8084; //Default port is 8084, if no argument is given.
+var port = process.env.PORT || 8084; //Default port is 8084, if no argument is given.
 var socketPort = 8086;
 
 var server = http.createServer(function(req, res){
