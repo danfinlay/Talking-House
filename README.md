@@ -1,8 +1,10 @@
-#Talking House
+#[Talking House](http://talkinghouse.herokuapp.com/new)
 
 ![Plan outline](images/color-mockup.jpg)
 
-A web application for projecting video-captured facial features onto a house, streamed from a performer computer to a projector computer over webRTC.
+A [web application](http://talkinghouse.herokuapp.com/new)for projecting video-captured facial features onto a house, streamed from a performer computer to a projector computer over webRTC.
+
+For example, I'll be trying to project it on a house in this pattern:
 
 ![Plan outline](outline.jpg)
 
