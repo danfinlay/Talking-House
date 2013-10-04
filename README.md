@@ -4,6 +4,9 @@
 
 A [web application](http://talkinghouse.herokuapp.com/new)for projecting video-captured facial features onto a house, streamed from a performer computer to a projector computer over webRTC.
 
+Right now the web applications (performer and projector windows) look like this:
+![Screenshot](images/screenshot1.jpg)
+
 Currently has really slow framerates, I believe it's because the way I've gone about is to stream the `<video>` from WebRTC onto a `<canvas>`, and then slice from that canvas onto a second one.  So that's two steps of re-copying.  I am curious if texture-mapping webGL objects would be faster, and may try that next.
 
 For example, I'll be trying to project it on a house in this pattern:

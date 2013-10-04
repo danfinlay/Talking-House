@@ -80,7 +80,7 @@ function sliceImageIntoImage( srcCtx, destCtx ){
     // console.log("Working with: ", window.vidWidth, window.vidHeight, s)
     // console.log("Drawing destination canvas", [s.source[0], s.source[1], s.source[2], s.source[3], dx, dy, dw, dh]);
    
-    destCtx.drawImage(that.img, s.source[0]+50, s.source[1], s.source[2], s.source[3], dx, dy, dw, dh);  
+    destCtx.drawImage(that.img, s.source[0], s.source[1], s.source[2], s.source[3], dx, dy, dw, dh);  
 
 
 

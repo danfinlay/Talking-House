@@ -5,18 +5,18 @@ module.exports = function(){
     selection: [
       //Left eye:
       {
-        source:[230, 175, 60, 45],
-        destination:[0, 0.1, 3]
+        source:[200, 125, 120, 90],
+        destination:[0, 0.3, 1.5]
       },
       //The mouth door:
       {
-        source:[260, 210, 75, 100],
-        destination:[0.32, 0.0, 3.5]
+        source:[275, 260, 100, 130],
+        destination:[0.3, 0.25, 2]
       },
       //Right Eye:
       {
-        source:[300, 175, 60, 45],
-        destination:[0.75, 0.1, 3]
+        source:[330, 125, 120, 90],
+        destination:[0.65, 0.3, 1.5]
       }
     ],
     source:{
